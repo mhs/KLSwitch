@@ -36,8 +36,8 @@
 #define kDefaultThumbBorderColor [UIColor colorWithWhite: 0.9f alpha:1.0f]
 
 //Appearance - Thumb
-#define kThumbShadowRadius 0.8f
 #define kThumbShadowOpacity 0.4f
+#define kThumbShadowRadius 3.0f
 
 //Appearance - Layout
 
