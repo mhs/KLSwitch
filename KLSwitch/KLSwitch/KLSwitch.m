@@ -300,6 +300,10 @@ typedef enum {
     //Alternate between on/off
     [self setOn: self.isOn ? NO : YES
        animated: YES];
+
+    // Don't fire UI events within setOn as programmatic changes
+    // shouldn't fire UI events.
+    [self sendActionsForControlEvents:UIControlEventValueChanged];
 }
 
 - (void)setOn:(BOOL)on
@@ -323,7 +327,6 @@ typedef enum {
     if (self.didChangeHandler) {
         self.didChangeHandler(_on);
     }
-    [self sendActionsForControlEvents:UIControlEventValueChanged];
 }
 
 - (void) setOn:(BOOL)on {
