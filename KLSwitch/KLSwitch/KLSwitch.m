@@ -22,6 +22,8 @@
 #define kCodingOnImageKey @"onImage"
 #define kCodingOffImageKey @"offImage"
 #define kCodingConstrainFrameKey @"constrainFrame"
+#define kCodingThumbShadowOpacity @"shadowOpacity"
+#define kCodingThumbShadowRadius @"shadowRadius"
 
 //Appearance Defaults - Colors
 //Track Colors
@@ -32,6 +34,10 @@
 //Thumb Colors
 #define kDefaultThumbTintColor [UIColor whiteColor]
 #define kDefaultThumbBorderColor [UIColor colorWithWhite: 0.9f alpha:1.0f]
+
+//Appearance - Thumb
+#define kThumbShadowOpacity 0.4f
+#define kThumbShadowRadius 3.0f
 
 //Appearance - Layout
 
@@ -133,9 +139,10 @@ typedef enum {
         _offImage = [aDecoder decodeObjectForKey: kCodingOffImageKey];
         _onTintColor = [aDecoder decodeObjectForKey: kCodingOnTintColorKey];
         _shouldConstrainFrame = [aDecoder decodeBoolForKey: kCodingConstrainFrameKey];
-        
-        [self configureSwitch];
+        _shadowOpacity =[aDecoder decodeFloatForKey: kCodingThumbShadowOpacity];
+        _shadowRadius =[aDecoder decodeFloatForKey: kCodingThumbShadowRadius];
 
+        [self configureSwitch];
     }
     return self;
 }
@@ -171,6 +178,9 @@ typedef enum {
     _contrastColor = kDefaultThumbTintColor;
     _panActivationThreshold = kDefaultPanActivationThreshold;
     _shouldConstrainFrame = kConstrainsFrameToProportions;
+    _shadowOpacity = kThumbShadowOpacity;
+    _shadowRadius = kThumbShadowRadius;
+
 }
 -(void) configureSwitch {
     [self initializeDefaults];
@@ -246,8 +256,8 @@ typedef enum {
     [_thumb.layer setCornerRadius: roundedCornerRadius];
     [_thumb.layer setShadowColor: [[UIColor grayColor] CGColor]];
     [_thumb.layer setShadowOffset: CGSizeMake(0, 3)];
-    [_thumb.layer setShadowOpacity: 0.40f];
-    [_thumb.layer setShadowRadius: 0.8];
+    [_thumb.layer setShadowOpacity: self.shadowOpacity];
+    [_thumb.layer setShadowRadius: self.shadowRadius];
 }
 
 #pragma mark - UIGestureRecognizer implementations
